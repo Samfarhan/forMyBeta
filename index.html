@@ -3,58 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>For You | The Celestial Vault</title>
+  <title>For Alyaa | The Celestial Vault</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <link rel="stylesheet" href="css/luxury.css">
+  <style>
+    @keyframes subtleShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .shake-card {
+      animation: subtleShake 0.4s ease-in-out;
+    }
+  </style>
 </head>
-<body class="cosmic-bg flex items-center justify-center min-h-[100dvh] overflow-hidden relative">
+<body class="cosmic-bg flex items-center justify-center min-h-[100dvh] overflow-hidden relative select-none">
 
   <!-- Interactive Stardust Canvas -->
   <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-  <!-- Ambient Glowing Orbs -->
-  <div class="ambient-glow-orb w-80 h-80 bg-rose-600/30 top-10 -left-20"></div>
-  <div class="ambient-glow-orb w-80 h-80 bg-purple-600/25 bottom-10 -right-20"></div>
+  <!-- Ambient Glow -->
+  <div class="ambient-glow-orb w-80 h-80 bg-rose-600/25 top-10 -left-20"></div>
+  <div class="ambient-glow-orb w-80 h-80 bg-purple-600/20 bottom-10 -right-20"></div>
 
   <!-- Main Container -->
   <main class="journey-shell justify-center items-center text-center">
     
     <!-- Vault Card -->
-    <div id="vaultCard" class="w-full glass-card p-6 md:p-8 flex flex-col items-center relative z-20 border border-white/20">
+    <div id="vaultCard" class="w-full glass-card p-6 md:p-8 flex flex-col items-center relative z-20 border border-white/20 transition-transform duration-300">
       
-      <!-- Top Crest / Glowing Seal -->
-      <div class="w-16 h-16 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-4 relative">
-        <div class="absolute inset-0 rounded-full bg-pink-500/20 animate-ping opacity-40"></div>
+      <!-- Glowing Seal -->
+      <div class="w-14 h-14 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-4 relative">
+        <div class="absolute inset-0 rounded-full bg-pink-500/20 animate-ping opacity-30"></div>
         <span class="text-2xl">✨</span>
       </div>
 
       <!-- Tagline -->
-      <span class="text-[10px] font-extrabold tracking-[0.4em] text-pink-300 uppercase mb-2">A TIMELOCK DEDICATION</span>
+      <span class="text-[9px] font-extrabold tracking-[0.35em] text-pink-300 uppercase mb-2">A PRIVATE ARCHIVE</span>
       
-      <!-- Title -->
+      <!-- Title: For Alyaa -->
       <h1 class="font-luxury text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-pink-100 to-rose-300 mb-3 text-glow-rose leading-tight">
-        For My Beta
+        For Alyaa
       </h1>
 
-      <!-- Dedication Note -->
-      <p class="text-xs md:text-sm text-slate-300 font-light leading-relaxed mb-6 max-w-xs">
-        Because some stories are too precious to simply fade away. A private vault of our memories, your favorite things, and a heartfelt last message.
-      </p>
-
-      <!-- Interactive Glowing Heart Key -->
-      <div class="my-3 flex flex-col items-center">
-        <button id="unlockBtn" onclick="handleUnlock()" class="w-20 h-20 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center shadow-[0_0_35px_rgba(244,63,94,0.6)] border border-pink-300/50 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer relative">
-          <span class="text-3xl filter drop-shadow group-hover:scale-110 transition-transform">🤍</span>
-          <div class="absolute -bottom-7 whitespace-nowrap text-[10px] font-bold text-pink-300 tracking-wider uppercase opacity-80 group-hover:opacity-100">
-            Tap to Open
-          </div>
-        </button>
+      <!-- Dedication Note: LET'S GO BACK. To when we were still us. -->
+      <div class="my-3 max-w-xs">
+        <p class="text-sm md:text-base font-extrabold tracking-widest text-pink-200 uppercase font-sans-ui">
+          LET'S GO BACK.
+        </p>
+        <p class="text-xs md:text-sm text-slate-300 font-light italic font-luxury mt-1">
+          To when we were still us.
+        </p>
       </div>
 
-      <div class="mt-12 text-[11px] text-slate-400 flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Every memory here is protected forever</span>
+      <!-- Passcode Input Section -->
+      <div class="w-full mt-5 flex flex-col items-center gap-3 max-w-[260px]">
+        <div class="relative w-full">
+          <input 
+            id="passcodeInput" 
+            type="password" 
+            inputmode="numeric" 
+            maxlength="10" 
+            placeholder="Enter date passcode" 
+            class="w-full py-3 px-4 rounded-full bg-white/5 border border-white/20 text-center text-white tracking-[0.3em] text-sm focus:outline-none focus:border-pink-400 focus:bg-white/10 transition-all placeholder:text-slate-500 placeholder:tracking-normal placeholder:text-xs"
+            autocomplete="off"
+          />
+        </div>
+
+        <button 
+          id="unlockBtn" 
+          onclick="validatePasscode()" 
+          class="btn-luxury-primary w-full text-xs py-3 mt-1 cursor-pointer">
+          <span>Unlock Vault</span>
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+
+        <p id="errorText" class="text-[11px] text-rose-400 font-medium h-4 opacity-0 transition-opacity">
+          That date doesn't open this vault.
+        </p>
+      </div>
+
+      <!-- Footnote -->
+      <div class="mt-4 text-[11px] text-slate-400 flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></span>
+        <span>Every memory here is protected</span>
       </div>
 
     </div>
@@ -69,20 +102,43 @@
   <script>
     initStardustCanvas();
 
-    function handleUnlock() {
-      window.soundEngine.playSuccess();
+    const CORRECT_PASS = "201123";
+
+    function validatePasscode() {
+      const input = document.getElementById('passcodeInput');
       const card = document.getElementById('vaultCard');
-      gsap.to(card, {
-        scale: 0.9,
-        opacity: 0,
-        filter: 'blur(10px)',
-        duration: 0.8,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          window.location.href = 'page1-welcome.html';
-        }
-      });
+      const errorText = document.getElementById('errorText');
+      const rawVal = input.value.trim().replace(/[\/\-\.\s]/g, '');
+
+      if (rawVal === CORRECT_PASS) {
+        window.soundEngine.playSuccess();
+        errorText.classList.add('opacity-0');
+        
+        gsap.to(card, {
+          scale: 0.92,
+          opacity: 0,
+          filter: 'blur(12px)',
+          duration: 0.8,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            window.location.href = 'page1-welcome.html';
+          }
+        });
+      } else {
+        window.soundEngine.playPop();
+        errorText.classList.remove('opacity-0');
+        card.classList.add('shake-card');
+        input.value = '';
+        setTimeout(() => {
+          card.classList.remove('shake-card');
+        }, 450);
+      }
     }
+
+    // Allow Enter key to trigger unlock
+    document.getElementById('passcodeInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') validatePasscode();
+    });
   </script>
 </body>
 </html>

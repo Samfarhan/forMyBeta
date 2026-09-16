@@ -1,4 +1,4 @@
-﻿/**
+/**
  * For My Beta - Core Shared Engine
  * Audio synthesis, stardust particle physics, floating companion, and navigation.
  */
@@ -191,7 +191,7 @@ function initStardustCanvas(canvasId = 'stardustCanvas') {
 
 // 3. FLOATING COMPANION STICKER
 const MASCOT_QUOTES = [
-  "Bettuu, take a deep breath... âœ¨",
+  "Alyaa, take a deep breath... âœ¨",
   "Every memory here is kept safe ðŸ¤",
   "You made ordinary days so special ðŸŒ¸",
   "I will always wish the absolute best for you ðŸŒŸ",
