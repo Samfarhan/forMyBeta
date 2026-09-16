@@ -1,88 +1,637 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>For You | The Celestial Vault</title>
+  <title>The Permanent Vault â€” Private Archive</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <link rel="stylesheet" href="css/luxury.css">
+  <link rel="stylesheet" href="css/vault.css">
 </head>
-<body class="cosmic-bg flex items-center justify-center min-h-[100dvh] overflow-hidden relative">
+<body class="bg-[#020106] text-[#F5F0F2] overflow-hidden antialiased">
 
-  <!-- Interactive Stardust Canvas -->
-  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <!-- Microscopic Cosmic Stardust Canvas -->
+  <canvas id="cosmicCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-  <!-- Ambient Glowing Orbs -->
-  <div class="ambient-glow-orb w-80 h-80 bg-rose-600/30 top-10 -left-20"></div>
-  <div class="ambient-glow-orb w-80 h-80 bg-purple-600/25 bottom-10 -right-20"></div>
+  <!-- Atmospheric Vignette & Film Grain -->
+  <div class="vignette-overlay"></div>
+  <div class="film-grain"></div>
 
-  <!-- Main Container -->
-  <main class="journey-shell justify-center items-center text-center">
-    
-    <!-- Vault Card -->
-    <div id="vaultCard" class="w-full glass-card p-6 md:p-8 flex flex-col items-center relative z-20 border border-white/20">
-      
-      <!-- Top Crest / Glowing Seal -->
-      <div class="w-16 h-16 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-4 relative">
-        <div class="absolute inset-0 rounded-full bg-pink-500/20 animate-ping opacity-40"></div>
-        <span class="text-2xl">âœ¨</span>
+  <!-- Warm Bloom Overlay (Triggered upon vault unlock) -->
+  <div id="bloomOverlay" class="bloom-overlay"></div>
+
+  <!-- Top Discreet Archive HUD (Hidden on Chapter 01) -->
+  <nav id="archiveHud" class="archive-hud opacity-0 pointer-events-none transition-opacity duration-700">
+    <!-- Audio archive toggle -->
+    <button id="archiveAudioToggle" class="chapter-pill text-[10px] tracking-[0.2em] uppercase hover:border-white/25 transition-all">
+      <span>AUDIO: MUTED</span>
+      <span class="text-slate-500">[....]</span>
+    </button>
+
+    <!-- Minimal Chapter Indicator & Previous/Next controls -->
+    <div class="flex items-center gap-1.5">
+      <button id="hudPrevBtn" class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white/25 active:scale-95 transition-all" title="Previous Archive Chapter">
+        â€¹
+      </button>
+      <div id="hudChapterNumber" class="chapter-pill py-1 px-3 text-[10px] tracking-[0.25em]">
+        01 / 12
       </div>
-
-      <!-- Tagline -->
-      <span class="text-[10px] font-extrabold tracking-[0.4em] text-pink-300 uppercase mb-2">A TIMELOCK DEDICATION</span>
-      
-      <!-- Title -->
-      <h1 class="font-luxury text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-pink-100 to-rose-300 mb-3 text-glow-rose leading-tight">
-        For My Beta
-      </h1>
-
-      <!-- Dedication Note -->
-      <p class="text-xs md:text-sm text-slate-300 font-light leading-relaxed mb-6 max-w-xs">
-        Because some stories are too precious to simply fade away. A private vault of our memories, your favorite things, and a heartfelt last message.
-      </p>
-
-      <!-- Interactive Glowing Heart Key -->
-      <div class="my-3 flex flex-col items-center">
-        <button id="unlockBtn" onclick="handleUnlock()" class="w-20 h-20 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center shadow-[0_0_35px_rgba(244,63,94,0.6)] border border-pink-300/50 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer relative">
-          <span class="text-3xl filter drop-shadow group-hover:scale-110 transition-transform">ðŸ¤</span>
-          <div class="absolute -bottom-7 whitespace-nowrap text-[10px] font-bold text-pink-300 tracking-wider uppercase opacity-80 group-hover:opacity-100">
-            Tap to Open
-          </div>
-        </button>
-      </div>
-
-      <!-- Quick passcode alternative -->
-      <div class="mt-12 text-[11px] text-slate-400 flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Every memory here is protected forever</span>
-      </div>
-
+      <button id="hudNextBtn" class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white/25 active:scale-95 transition-all" title="Next Archive Chapter">
+        â€º
+      </button>
     </div>
+  </nav>
 
-    <footer class="mt-6 text-[10px] text-slate-500 tracking-wider">
-      A Farewell Tribute â€¢ Dedicated With Infinite Respect
-    </footer>
+  <!-- Master Viewport Shell -->
+  <main class="vault-viewport">
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 01 â€” THE PASSCODE -->
+    <!-- ========================================== -->
+    <section id="scene-1" class="vault-scene active justify-center items-center text-center">
+      <div id="passcodeCard" class="w-full max-w-xs flex flex-col items-center">
+        
+        <span class="text-[9px] font-sans-vault font-semibold tracking-[0.45em] text-[#8E8993] uppercase mb-3">
+          PRIVATE ARCHIVE // 01 OF 12
+        </span>
+
+        <h1 class="font-serif-vault text-2xl md:text-3xl font-normal tracking-wide text-[#F5F0F2] mb-6">
+          The Permanent Vault
+        </h1>
+
+        <p class="font-serif-vault italic text-xs md:text-sm text-[#D9A0A8] leading-relaxed mb-8 max-w-[280px] opacity-90">
+          â€œSome things deserve to exist somewhere, even after they no longer exist between two people.â€
+        </p>
+
+        <!-- Minimal Passcode Form -->
+        <div class="w-full flex flex-col items-center gap-3">
+          <input id="vaultPasscodeInput" type="text" placeholder="enter the date you remember" class="vault-input w-full py-3 px-4 text-xs placeholder:text-[#8E8993]/50 focus:placeholder:opacity-0" autocomplete="off" autocorrect="off">
+          
+          <button id="vaultUnlockBtn" class="w-full py-2.5 rounded-full bg-white/5 border border-white/15 text-[11px] font-sans-vault tracking-[0.25em] text-[#F5F0F2] hover:bg-white/10 active:scale-98 transition-all">
+            ENTER VAULT
+          </button>
+
+          <!-- Discreet bypass option -->
+          <button id="vaultBypassBtn" class="text-[9px] font-sans-vault tracking-[0.2em] text-[#8E8993] hover:text-[#D9A0A8] uppercase transition-colors pt-2">
+            [ unlock with remembered memory ]
+          </button>
+        </div>
+
+        <p id="passcodeErrorMsg" class="text-[10px] font-sans-vault text-[#FF6F9F] mt-4 opacity-0 transition-opacity">
+          That memory doesn't open this door.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 02 â€” CONSTELLATION TIMELINE -->
+    <!-- ========================================== -->
+    <section id="scene-2" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">ASTRONOMICAL ARCHIVE</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">The Nights We Became</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">Tap any glowing star to inspect the coordinates</p>
+      </header>
+
+      <!-- Constellation Canvas -->
+      <div class="relative w-full flex-1 my-2 flex items-center justify-center">
+        <canvas id="constellationCanvas" class="w-full h-full max-h-[360px]"></canvas>
+
+        <!-- Floating Glass Card for Selected Star -->
+        <div id="constellationCard" class="absolute bottom-4 inset-x-4 vault-glass p-4 opacity-0 pointer-events-none transition-all duration-300">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-2">
+            <h3 id="starCardTitle" class="text-xs font-serif-vault text-[#F5F0F2] font-semibold"></h3>
+            <span id="starCardDate" class="text-[9px] font-mono-terminal text-[#D9A0A8]"></span>
+          </div>
+          <p id="starCardDesc" class="text-[11px] font-sans-vault text-slate-300 font-light leading-relaxed"></p>
+        </div>
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        SWIPE OR TAP â€º TO CONTINUE
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 03 â€” POLAROID GALLERY -->
+    <!-- ========================================== -->
+    <section id="scene-3" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">PRESERVED ARTIFACTS</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">Imperfect Photographs</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">Moments captured before we knew they were memories</p>
+      </header>
+
+      <!-- Asymmetric Polaroid Display -->
+      <div class="my-auto grid grid-cols-2 gap-4 px-2">
+        
+        <!-- Polaroid 1 -->
+        <div class="polaroid-item p-2.5 rounded-sm transform -rotate-3 relative" onclick="openPolaroidModal('â€œYou were laughing before I even took this.â€', 'November 14 // 17:48')">
+          <div class="tape-strip"></div>
+          <div class="h-28 bg-[#15141c] rounded-sm flex items-center justify-center text-2xl opacity-80">
+            ðŸŽžï¸
+          </div>
+          <p class="font-serif-vault italic text-[10px] text-[#F5F0F2] mt-2.5 text-center leading-tight">
+            Golden afternoon
+          </p>
+        </div>
+
+        <!-- Polaroid 2 -->
+        <div class="polaroid-item p-2.5 rounded-sm transform rotate-2 relative" onclick="openPolaroidModal('â€œI donâ€™t remember what we were talking about. I remember being happy.â€', 'January 03 // 01:15')">
+          <div class="tape-strip"></div>
+          <div class="h-28 bg-[#181622] rounded-sm flex items-center justify-center text-2xl opacity-80">
+            â˜•
+          </div>
+          <p class="font-serif-vault italic text-[10px] text-[#F5F0F2] mt-2.5 text-center leading-tight">
+            The corner booth
+          </p>
+        </div>
+
+        <!-- Polaroid 3 -->
+        <div class="polaroid-item p-2.5 rounded-sm transform rotate-1 relative" onclick="openPolaroidModal('â€œThe road was empty, cold air coming through the cracked window.â€', 'March 22 // 23:40')">
+          <div class="tape-strip"></div>
+          <div class="h-28 bg-[#14121a] rounded-sm flex items-center justify-center text-2xl opacity-80">
+            ðŸŒŒ
+          </div>
+          <p class="font-serif-vault italic text-[10px] text-[#F5F0F2] mt-2.5 text-center leading-tight">
+            Late night drive
+          </p>
+        </div>
+
+        <!-- Polaroid 4 -->
+        <div class="polaroid-item p-2.5 rounded-sm transform -rotate-2 relative" onclick="openPolaroidModal('â€œWe promised never to delete this one.â€', 'July 18 // 14:02')">
+          <div class="tape-strip"></div>
+          <div class="h-28 bg-[#19151f] rounded-sm flex items-center justify-center text-2xl opacity-80">
+            ðŸ“·
+          </div>
+          <p class="font-serif-vault italic text-[10px] text-[#F5F0F2] mt-2.5 text-center leading-tight">
+            Unfiltered candid
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Spotlight Lightbox Modal -->
+      <div id="polaroidLightbox" class="fixed inset-0 bg-[#020106]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="closePolaroidModal()">
+        <div class="vault-glass p-6 max-w-xs text-center border border-white/15">
+          <div class="text-3xl mb-3">ðŸŽžï¸</div>
+          <p id="polaroidCaptionText" class="font-serif-vault italic text-sm text-[#F5F0F2] leading-relaxed mb-3"></p>
+          <span id="polaroidDateText" class="text-[9px] font-mono-terminal text-[#D9A0A8] tracking-widest uppercase"></span>
+          <div class="mt-4 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">[ TAP ANYWHERE TO DISMISS ]</div>
+        </div>
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        TAP ANY PHOTOGRAPH TO FOCUS
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 04 â€” UNSENT MESSAGES TERMINAL -->
+    <!-- ========================================== -->
+    <section id="scene-4" class="vault-scene font-mono-terminal">
+      <header class="text-center pt-8 font-sans-vault">
+        <span class="text-[9px] tracking-[0.4em] text-[#8E8993] uppercase">DIGITAL SCRAPBOOK</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">Things I Never Sent</h2>
+        <p class="text-[10px] text-[#8E8993] mt-1">Drafts that stayed inside the keyboard</p>
+      </header>
+
+      <!-- Terminal Screen -->
+      <div class="vault-glass p-4 my-auto border border-[#72E6F5]/20 bg-[#04020a]/80 text-[#72E6F5]/90 text-xs space-y-3 relative overflow-hidden">
+        <div class="flex items-center justify-between border-b border-white/10 pb-2 text-[9px] text-[#8E8993]">
+          <span>TERMINAL // DRAFT_LOGS</span>
+          <span>STATUS: UNTRANSMITTED</span>
+        </div>
+
+        <div class="space-y-2.5 text-[11px] leading-relaxed font-light">
+          <p class="text-slate-300">
+            <span class="text-[#72E6F5] font-bold">&gt;</span> I almost told you about this today.
+          </p>
+          <p class="text-slate-300">
+            <span class="text-[#72E6F5] font-bold">&gt;</span> I still remember that stupid joke from the diner.
+          </p>
+          <p class="text-slate-300">
+            <span class="text-[#72E6F5] font-bold">&gt;</span> I deleted this message three times before putting down my phone.
+          </p>
+          <p class="text-slate-300">
+            <span class="text-[#72E6F5] font-bold">&gt;</span> I hope life is being gentle and kind to you.
+          </p>
+          <p class="text-[#D9A0A8]">
+            <span class="text-[#72E6F5] font-bold">&gt;</span> I wanted to say... <span class="text-[#8E8993] italic">[message never completed]</span>
+            <span class="terminal-cursor"></span>
+          </p>
+        </div>
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        WORDS KEPT IN THE SHADOWS
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 05 â€” AUDIO MEMORY (CASSETTE RECORDER) -->
+    <!-- ========================================== -->
+    <section id="scene-5" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">MAGNETIC TAPE ARCHIVE</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">Press Play If You're Ready</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">A quiet transcript from 2:17 AM</p>
+      </header>
+
+      <!-- Tape Console -->
+      <div class="vault-glass p-5 my-auto border border-white/10 text-center flex flex-col items-center">
+        <div class="text-[10px] font-mono-terminal text-[#D9A0A8] tracking-widest uppercase mb-3">
+          VOICE_03 â€” â€œTHAT NIGHTâ€
+        </div>
+
+        <!-- Rotating Tape Spools -->
+        <div class="flex items-center gap-6 my-2 opacity-80">
+          <div class="w-12 h-12 rounded-full border-2 border-dashed border-slate-500 flex items-center justify-center animate-spin" style="animation-duration: 6s;">
+            <div class="w-4 h-4 rounded-full bg-white/20"></div>
+          </div>
+          <div class="h-[1px] w-12 bg-white/20"></div>
+          <div class="w-12 h-12 rounded-full border-2 border-dashed border-slate-500 flex items-center justify-center animate-spin" style="animation-duration: 6s;">
+            <div class="w-4 h-4 rounded-full bg-white/20"></div>
+          </div>
+        </div>
+
+        <!-- Transcript Display -->
+        <div id="tapeTranscript" class="font-serif-vault text-xs md:text-sm text-slate-300 italic leading-relaxed my-5 max-w-[290px] min-h-[50px] space-y-2">
+          <p class="transcript-phrase transition-colors duration-500">â€œI recorded this because I didn't want to forget...â€</p>
+          <p class="transcript-phrase transition-colors duration-500">â€œThere was something quiet about the way you said my name.â€</p>
+          <p class="transcript-phrase transition-colors duration-500">â€œIt's late now, and the silence is comfortable.â€</p>
+          <p class="transcript-phrase transition-colors duration-500">â€œI hope you remember that someone listened to every single word.â€</p>
+        </div>
+
+        <button id="cassettePlayBtn" class="px-5 py-2 rounded-full bg-white/5 border border-white/20 text-[10px] font-sans-vault tracking-[0.25em] text-[#F5F0F2] hover:bg-white/10 active:scale-95 transition-all">
+          PLAY TAPE
+        </button>
+
+        <div id="recordingEndNotice" class="text-[9px] font-sans-vault text-[#D9A0A8] tracking-widest uppercase mt-4 opacity-0 transition-opacity">
+          END OF RECORDING â€¢ I DON'T THINK I COULD SAY THIS BETTER.
+        </div>
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        SYNCHRONIZED ARCHIVE REEL
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 06 â€” MICRO MEMORIES -->
+    <!-- ========================================== -->
+    <section id="scene-6" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">FRAGMENTED DETAILS</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">Small Things I Refuse to Forget</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">Because sometimes the smallest details hurt the most</p>
+      </header>
+
+      <!-- Asymmetric Grid of Tiny Memory Cards -->
+      <div class="my-auto grid grid-cols-2 gap-2.5">
+        <div class="vault-glass vault-glass-hover p-3 text-left" onclick="expandMicroMemory('â€œYou always stole the fries.â€', 'Even when you said you werenâ€™t hungry, you reached over without looking.')">
+          <p class="font-serif-vault text-xs text-[#F5F0F2]">â€œYou always stole the fries.â€</p>
+          <span class="text-[8px] font-sans-vault text-[#8E8993] uppercase tracking-wider block mt-1">tap to recall</span>
+        </div>
+
+        <div class="vault-glass vault-glass-hover p-3 text-left" onclick="expandMicroMemory('The jacket you forgot in my car.', 'It sat in the passenger seat for two weeks. The smell of your perfume lingered every time I opened the door.')">
+          <p class="font-serif-vault text-xs text-[#F5F0F2]">The jacket in my car.</p>
+          <span class="text-[8px] font-sans-vault text-[#8E8993] uppercase tracking-wider block mt-1">tap to recall</span>
+        </div>
+
+        <div class="vault-glass vault-glass-hover p-3 text-left" onclick="expandMicroMemory('Your 11:11 wishes.', 'You always took a screenshot and sent it with that secret emoji.')">
+          <p class="font-serif-vault text-xs text-[#F5F0F2]">Your 11:11 wishes.</p>
+          <span class="text-[8px] font-sans-vault text-[#8E8993] uppercase tracking-wider block mt-1">tap to recall</span>
+        </div>
+
+        <div class="vault-glass vault-glass-hover p-3 text-left" onclick="expandMicroMemory('The awkward silence that wasnâ€™t awkward.', 'Sitting together in complete stillness, realizing we didnâ€™t need words.')">
+          <p class="font-serif-vault text-xs text-[#F5F0F2]">Comfortable silence.</p>
+          <span class="text-[8px] font-sans-vault text-[#8E8993] uppercase tracking-wider block mt-1">tap to recall</span>
+        </div>
+
+        <div class="vault-glass vault-glass-hover p-3 text-left col-span-2" onclick="expandMicroMemory('The 2:17 AM phone call.', 'Half-asleep voices talking about our biggest fears and what we wanted to be remembered for.')">
+          <p class="font-serif-vault text-xs text-[#F5F0F2]">The 2:17 AM phone call.</p>
+          <span class="text-[8px] font-sans-vault text-[#8E8993] uppercase tracking-wider block mt-1">tap to recall</span>
+        </div>
+      </div>
+
+      <!-- Micro memory reveal modal -->
+      <div id="microModal" class="fixed inset-0 bg-[#020106]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeMicroModal()">
+        <div class="vault-glass p-6 max-w-xs text-center border border-white/15">
+          <h3 id="microModalTitle" class="font-serif-vault text-sm text-[#F5F0F2] mb-3"></h3>
+          <p id="microModalBody" class="font-sans-vault text-xs text-slate-300 font-light leading-relaxed mb-4"></p>
+          <div class="text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">[ TAP TO RETURN ]</div>
+        </div>
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        ARCHIVE SPECIMENS 01â€“05
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 07 â€” VOICE NOTE CAPSULES -->
+    <!-- ========================================== -->
+    <section id="scene-7" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">TRANSLUCENT CAPSULES</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">Recorded Time Shards</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">Floating memories sealed in glass</p>
+      </header>
+
+      <div class="my-auto space-y-3">
+        
+        <div class="vault-glass vault-glass-hover p-3.5 flex items-center justify-between cursor-pointer" onclick="playVoiceCapsule(this, '00:37')">
+          <div>
+            <div class="text-xs font-serif-vault text-[#F5F0F2]">VOICE NOTE 01</div>
+            <div class="text-[9px] font-mono-terminal text-[#8E8993] mt-0.5">RECORDED â€” 11:42 PM</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="waveform-anim flex items-center gap-0.5 h-4">
+              <span class="w-0.5 h-2 bg-slate-500"></span>
+              <span class="w-0.5 h-3 bg-slate-500"></span>
+              <span class="w-0.5 h-1.5 bg-slate-500"></span>
+            </span>
+            <span class="text-[10px] font-mono-terminal text-[#D9A0A8]">00:37</span>
+          </div>
+        </div>
+
+        <div class="vault-glass vault-glass-hover p-3.5 flex items-center justify-between cursor-pointer" onclick="playVoiceCapsule(this, '00:19')">
+          <div>
+            <div class="text-xs font-serif-vault text-[#F5F0F2]">VOICE NOTE 02</div>
+            <div class="text-[9px] font-mono-terminal text-[#8E8993] mt-0.5">RECORDED â€” 02:14 AM</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="waveform-anim flex items-center gap-0.5 h-4">
+              <span class="w-0.5 h-2 bg-slate-500"></span>
+              <span class="w-0.5 h-3 bg-slate-500"></span>
+              <span class="w-0.5 h-1.5 bg-slate-500"></span>
+            </span>
+            <span class="text-[10px] font-mono-terminal text-[#D9A0A8]">00:19</span>
+          </div>
+        </div>
+
+        <div class="vault-glass vault-glass-hover p-3.5 flex items-center justify-between cursor-pointer" onclick="playVoiceCapsule(this, '00:44')">
+          <div>
+            <div class="text-xs font-serif-vault text-[#F5F0F2]">VOICE NOTE 03</div>
+            <div class="text-[9px] font-mono-terminal text-[#8E8993] mt-0.5">RECORDED â€” 06:30 PM</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="waveform-anim flex items-center gap-0.5 h-4">
+              <span class="w-0.5 h-2 bg-slate-500"></span>
+              <span class="w-0.5 h-3 bg-slate-500"></span>
+              <span class="w-0.5 h-1.5 bg-slate-500"></span>
+            </span>
+            <span class="text-[10px] font-mono-terminal text-[#D9A0A8]">00:44</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="capsuleStayNotice" class="text-center font-serif-vault italic text-xs text-[#D9A0A8] min-h-[24px]">
+        Tap a capsule to unlock its waveform
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        TIME PRESERVED FOREVER
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 08 â€” THE WHAT-IF WISHBOOK -->
+    <!-- ========================================== -->
+    <section id="scene-8" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">HYPOTHETICAL ARCHIVE</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">The Life That Never Happened</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">Peaceful acceptance of parallel paths</p>
+      </header>
+
+      <!-- Digital Wishbook Page Container -->
+      <div class="my-auto vault-glass p-6 text-center border border-white/10 relative min-h-[220px] flex flex-col justify-between">
+        
+        <span id="wishbookPageNum" class="text-[9px] font-mono-terminal text-[#8E8993] uppercase tracking-widest">
+          PARALLEL 01 OF 04
+        </span>
+
+        <p id="wishbookText" class="font-serif-vault text-sm md:text-base text-[#F5F0F2] italic leading-relaxed py-4 transition-all duration-400">
+          â€œMaybe we'd have travelled somewhere neither of us could pronounce.â€
+        </p>
+
+        <div class="flex items-center justify-between pt-2 border-t border-white/10">
+          <button onclick="prevWishbookPage()" class="text-[10px] font-sans-vault text-[#8E8993] hover:text-white uppercase tracking-wider">
+            â€¹ PREV
+          </button>
+          <span class="text-[9px] font-sans-vault text-[#D9A0A8] uppercase tracking-widest">WISHBOOK</span>
+          <button onclick="nextWishbookPage()" class="text-[10px] font-sans-vault text-[#8E8993] hover:text-white uppercase tracking-wider">
+            NEXT â€º
+          </button>
+        </div>
+
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        BEAUTIFUL PRECISELY BECAUSE THEY REMAIN IMAGINED
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 09 â€” THE MEMORY BURST -->
+    <!-- ========================================== -->
+    <section id="scene-9" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">DYNAMIC DISPERSAL</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">The Memory Burst</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">Fragments drifting in zero gravity</p>
+      </header>
+
+      <div id="memoryBurstContainer" class="relative flex-1 w-full my-auto flex items-center justify-center">
+        <button id="openBoxBtn" class="px-6 py-3 rounded-full bg-white/5 border border-white/20 text-xs font-sans-vault tracking-[0.3em] text-[#F5F0F2] hover:bg-white/10 active:scale-95 transition-all">
+          OPEN THE BOX
+        </button>
+
+        <div id="burstFreezeQuote" class="absolute inset-x-4 text-center font-serif-vault italic text-sm md:text-base text-[#D9A0A8] opacity-0 pointer-events-none leading-relaxed">
+          â€œFunny how an entire world can fit inside a handful of moments.â€
+        </div>
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        TOUCH FRAGMENTS TO DISSOLVE THEM
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 10 â€” THE LANTERN RELEASE (CLIMAX) -->
+    <!-- ========================================== -->
+    <section id="scene-10" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">THE RELEASE</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">Everything Left Unsaid</h2>
+        <p class="text-[10px] font-sans-vault text-[#8E8993] mt-1">Holding on, then letting go</p>
+      </header>
+
+      <div class="flex-1 w-full my-auto flex flex-col items-center justify-center relative">
+        
+        <!-- Interactive Celestial Lantern -->
+        <div id="celestialLantern" class="w-24 h-32 rounded-3xl bg-gradient-to-t from-amber-600/30 via-rose-500/20 to-transparent border border-amber-300/40 flex flex-col items-center justify-center shadow-[0_0_25px_rgba(255,214,176,0.2)] cursor-pointer select-none relative">
+          <div class="w-6 h-6 rounded-full bg-amber-200/60 blur-[2px] animate-pulse"></div>
+          <span class="text-[8px] font-sans-vault text-amber-200 tracking-widest uppercase mt-3">RELEASE</span>
+        </div>
+
+        <p id="lanternStatusText" class="text-[9px] font-sans-vault text-[#8E8993] tracking-[0.3em] uppercase mt-6">
+          TOUCH AND HOLD TO RELEASE
+        </p>
+
+        <!-- Epilogue Text after release -->
+        <div id="lanternEpilogue" class="absolute inset-x-4 text-center font-serif-vault text-sm md:text-base text-[#F5F0F2] opacity-0 pointer-events-none space-y-2">
+          <p class="italic text-[#8E8993]">â€œNot everything has to be kept.â€</p>
+          <p class="italic text-[#D9A0A8] font-medium">â€œSome things can be loved and still be released.â€</p>
+        </div>
+
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        INTO COMPLETE STILLNESS
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 11 â€” THE FAREWELL LETTER -->
+    <!-- ========================================== -->
+    <section id="scene-11" class="vault-scene">
+      <header class="text-center pt-8">
+        <span class="text-[9px] font-sans-vault tracking-[0.4em] text-[#8E8993] uppercase">THE FINAL RECORD</span>
+        <h2 class="font-serif-vault text-xl md:text-2xl text-[#F5F0F2] mt-1">One Last Thing</h2>
+      </header>
+
+      <!-- Handwritten-style Farewell Letter -->
+      <div class="my-auto vault-glass p-6 text-left border border-white/10 space-y-3 font-serif-vault text-xs md:text-sm text-[#F5F0F2] leading-relaxed relative overflow-hidden">
+        <p class="text-[#D9A0A8] italic">
+          â€œI don't want to change what happened. I don't want anything from you. I just wanted to preserve what was beautiful.â€
+        </p>
+        <p class="text-slate-300 font-light font-sans-vault text-[11px] leading-relaxed">
+          I am grateful that our paths crossed. We were two people who found quiet comfort in each other during a specific season of life. I will remember the good without needing to rewrite the ending.
+        </p>
+        <p class="text-slate-300 font-light font-sans-vault text-[11px] leading-relaxed">
+          You don't owe me anything. You don't have to carry any weight from what was left behind. I hope the life ahead of you is gentle, that you achieve everything you worked hard for, and that you smile often.
+        </p>
+        <p class="text-[#F5F0F2] font-serif-vault italic pt-2">
+          â€œTake care of yourself.â€
+        </p>
+        <div class="pt-2 text-right text-[10px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+          â€” THE BOY AT 2:17 AM
+        </div>
+      </div>
+
+      <footer class="text-center pb-2 text-[9px] font-sans-vault text-[#8E8993] tracking-widest uppercase">
+        SWIPE â€º TO ARCHIVE CONCLUSION
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CHAPTER 12 â€” THE PERMANENT SEAL -->
+    <!-- ========================================== -->
+    <section id="scene-12" class="vault-scene justify-center items-center text-center">
+      <div class="max-w-xs flex flex-col items-center">
+        
+        <span class="text-[9px] font-sans-vault tracking-[0.45em] text-[#8E8993] uppercase mb-2">
+          ARCHIVE COMPLETE // 12 OF 12
+        </span>
+
+        <h2 class="font-serif-vault text-2xl text-[#F5F0F2] mb-3">
+          The Permanent Seal
+        </h2>
+
+        <p class="font-serif-vault italic text-xs text-[#8E8993] mb-8 leading-relaxed">
+          â€œSome memories aren't meant to be revisited.â€
+        </p>
+
+        <button id="permanentSealBtn" class="px-8 py-3 rounded-full bg-white/5 border border-white/20 text-xs font-sans-vault tracking-[0.3em] text-[#F5F0F2] hover:border-[#D9A0A8] active:scale-95 transition-all">
+          SEAL THE VAULT
+        </button>
+
+      </div>
+    </section>
 
   </main>
 
-  <script src="js/core.js"></script>
+  <script src="js/vault.js"></script>
   <script>
-    initStardustCanvas();
+    // Modal Helpers
+    function openPolaroidModal(caption, date) {
+      window.vaultAudio.playGlassTap();
+      document.getElementById('polaroidCaptionText').textContent = caption;
+      document.getElementById('polaroidDateText').textContent = date;
+      const m = document.getElementById('polaroidLightbox');
+      m.classList.remove('opacity-0', 'pointer-events-none');
+      m.classList.add('opacity-100');
+    }
 
-    function handleUnlock() {
-      window.soundEngine.playSuccess();
-      const card = document.getElementById('vaultCard');
-      gsap.to(card, {
-        scale: 0.9,
-        opacity: 0,
-        filter: 'blur(10px)',
-        duration: 0.8,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          window.location.href = 'page1-welcome.html';
-        }
-      });
+    function closePolaroidModal() {
+      const m = document.getElementById('polaroidLightbox');
+      m.classList.add('opacity-0', 'pointer-events-none');
+      m.classList.remove('opacity-100');
+    }
+
+    function expandMicroMemory(title, body) {
+      window.vaultAudio.playGlassTap();
+      document.getElementById('microModalTitle').textContent = title;
+      document.getElementById('microModalBody').textContent = body;
+      const m = document.getElementById('microModal');
+      m.classList.remove('opacity-0', 'pointer-events-none');
+      m.classList.add('opacity-100');
+    }
+
+    function closeMicroModal() {
+      const m = document.getElementById('microModal');
+      m.classList.add('opacity-0', 'pointer-events-none');
+      m.classList.remove('opacity-100');
+    }
+
+    function playVoiceCapsule(card, duration) {
+      window.vaultAudio.playGlassTap();
+      const notice = document.getElementById('capsuleStayNotice');
+      notice.textContent = `Listening to waveform (${duration})...`;
+      card.classList.add('border-rose-400/40');
+      setTimeout(() => {
+        notice.textContent = `You stayed here for ${duration.replace('00:', '')} seconds.`;
+      }, 2500);
+    }
+
+    // Wishbook Pages
+    const wishbookPages = [
+      "â€œMaybe we'd have travelled somewhere neither of us could pronounce.â€",
+      "â€œMaybe we'd still be arguing about where to eat on a Friday night.â€",
+      "â€œMaybe we'd have taken that photograph we kept postponing.â€",
+      "â€œSome futures are beautiful precisely because they remain imagined.â€"
+    ];
+    let wishbookIdx = 0;
+
+    function updateWishbook() {
+      window.vaultAudio.playGlassTap();
+      const textEl = document.getElementById('wishbookText');
+      const numEl = document.getElementById('wishbookPageNum');
+      textEl.style.opacity = '0';
+      setTimeout(() => {
+        textEl.textContent = wishbookPages[wishbookIdx];
+        numEl.textContent = `PARALLEL 0${wishbookIdx + 1} OF 04`;
+        textEl.style.opacity = '1';
+      }, 200);
+    }
+
+    function nextWishbookPage() {
+      if (wishbookIdx < wishbookPages.length - 1) {
+        wishbookIdx++;
+        updateWishbook();
+      }
+    }
+
+    function prevWishbookPage() {
+      if (wishbookIdx > 0) {
+        wishbookIdx--;
+        updateWishbook();
+      }
     }
   </script>
 </body>
