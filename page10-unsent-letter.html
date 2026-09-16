@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Unsent Letter | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <div class="ambient-glow-orb w-72 h-72 bg-rose-700/25 top-10 -left-20"></div>
+
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">CHAPTER 09</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        The Unsent Letter
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">Honest words from a grateful heart</p>
+    </header>
+
+    <!-- Letter Parchment Card -->
+    <div class="my-auto py-3">
+      <div class="glass-card p-5 md:p-6 border border-white/20 relative overflow-hidden">
+        
+        <div class="font-handwriting text-2xl text-pink-300 mb-3">Dear Bettuu,</div>
+
+        <div class="space-y-3 text-xs md:text-sm text-slate-200 font-light leading-relaxed font-sans-ui">
+          <p>
+            It is strange how two people can share so many quiet moments, so many laughs, and then life gently turns the page. We are not together anymore, and while accepting that hasn\'t been easy, I wanted you to hear this from me directly:
+          </p>
+          <p class="text-pink-200 font-medium">
+            There is not a single drop of resentment or bitterness in my heart for you. Only gratitude.
+          </p>
+          <p>
+            Thank you for every story you shared, for the late night conversations, for teaching me how good it feels to care for someone unconditionally, and for making ordinary days feel memorable.
+          </p>
+          <p>
+            Sometimes loving someone also means stepping back, respecting where life takes both of us, and genuinely wishing them the brightest future from afar.
+          </p>
+          <p>
+            Take good care of your health, eat your favorite meals without guilt, keep working towards your dreams, and never let anyone dim that lovely spark of yours.
+          </p>
+        </div>
+
+        <div class="mt-5 pt-3 border-t border-white/10 flex flex-col items-end">
+          <span class="text-xs text-slate-400">With respect and timeless warmth,</span>
+          <span class="font-handwriting text-xl text-pink-300 font-bold mt-1">Forever Cheering For You ðŸŒ¸</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(10);
+  </script>
+</body>
+</html>

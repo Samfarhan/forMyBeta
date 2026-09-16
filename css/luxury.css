@@ -1,0 +1,210 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg-deep: #05030b;
+  --bg-nebula: #11091e;
+  --rose-primary: #fb7185;
+  --rose-glow: rgba(251, 113, 133, 0.4);
+  --violet-accent: #c084fc;
+  --gold-accent: #fcd34d;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-deep);
+  color: #f1f5f9;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Typography Classes */
+.font-luxury {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+.font-sans-ui {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Cosmic Background */
+.cosmic-bg {
+  background: 
+    radial-gradient(circle at 50% 20%, rgba(35, 15, 55, 0.9) 0%, rgba(10, 5, 20, 0.96) 55%, #040208 100%),
+    radial-gradient(circle at 80% 80%, rgba(244, 63, 94, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 20% 70%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+  min-height: 100dvh;
+  position: relative;
+}
+
+/* Mobile-First App Shell */
+.journey-shell {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  padding-bottom: 5.5rem;
+  z-index: 10;
+}
+
+/* Luxury Glassmorphism Cards */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(20, 12, 35, 0.65) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 30px rgba(251, 113, 133, 0.08);
+}
+
+.glass-card-interactive {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-interactive:hover, .glass-card-interactive:active {
+  transform: translateY(-3px) scale(1.01);
+  border-color: rgba(251, 113, 133, 0.4);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 35px rgba(251, 113, 133, 0.25);
+}
+
+/* Glow Utilities */
+.text-glow-rose {
+  text-shadow: 0 0 20px rgba(251, 113, 133, 0.65), 0 0 40px rgba(244, 63, 94, 0.3);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 18px rgba(252, 211, 77, 0.7), 0 0 35px rgba(245, 158, 11, 0.4);
+}
+
+.text-glow-violet {
+  text-shadow: 0 0 20px rgba(192, 132, 252, 0.7), 0 0 40px rgba(168, 85, 247, 0.35);
+}
+
+/* Glowing Buttons */
+.btn-luxury-primary {
+  background: linear-gradient(135deg, #f43f5e 0%, #d946ef 100%);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(244, 63, 94, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-luxury-primary:hover, .btn-luxury-primary:active {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(244, 63, 94, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.btn-luxury-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  color: #e2e8f0;
+  font-weight: 600;
+  padding: 0.85rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-luxury-secondary:hover, .btn-luxury-secondary:active {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Roaming Mascot Animations */
+@keyframes safeOrbitMotion {
+  0% { top: 10%; left: 6%; transform: scale(1) rotate(0deg); }
+  25% { top: 14%; left: 72%; transform: scale(1.04) rotate(6deg); }
+  50% { top: 66%; left: 70%; transform: scale(0.96) rotate(-5deg); }
+  75% { top: 60%; left: 8%; transform: scale(1.02) rotate(4deg); }
+  100% { top: 10%; left: 6%; transform: scale(1) rotate(0deg); }
+}
+
+.animate-roaming-mascot {
+  position: fixed;
+  animation: safeOrbitMotion 22s linear infinite;
+  z-index: 45;
+  filter: drop-shadow(0 10px 25px rgba(244, 63, 94, 0.4));
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+.animate-gentle-float {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Shimmer Effect */
+@keyframes goldShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #fce7f3 0%, #fb7185 25%, #fef08a 50%, #fb7185 75%, #fce7f3 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: goldShimmer 6s linear infinite;
+}
+
+/* Ambient Aura Circles */
+.ambient-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.45;
+}

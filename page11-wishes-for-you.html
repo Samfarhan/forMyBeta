@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>10 Wishes | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <div class="ambient-glow-orb w-72 h-72 bg-purple-600/20 top-10 -right-20"></div>
+
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">CHAPTER 10</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        10 Wishes For You âœ¨
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">Tap each wish crystal to light up a blessing</p>
+    </header>
+
+    <div class="my-4 space-y-2">
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'May your mind always find calm, especially on noisy days.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">01. Unwavering Peace of Mind</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'May you achieve every single goal and career milestone you set your eyes on.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">02. Wild Success in Your Dreams</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'May you laugh so hard your stomach aches with people who truly value you.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">03. Genuine Belly Laughter</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'May you always have good health, energy, and radiant vitality.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">04. Vibrant Health & Vitality</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'Unlimited momos, biryani, chocolates, and never ever having to go hangry!')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">05. An Abundance of Favorite Foods</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'May you travel to the mountains, the sea, and all the places on your bucket list.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">06. Beautiful Journeys & Travel</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'May you never feel guilty for putting your own well-being and happiness first.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">07. Courage To Choose Yourself</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'May your pillow be cool and your sleep be deep and undisturbed every single night.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">08. Peaceful & Sound Sleep</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'People who handle your soft emotions with gentle hands and pure loyalty.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">09. Gentle People Around You</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+      <div class="glass-card glass-card-interactive p-3 border border-white/10 flex items-center justify-between cursor-pointer" onclick="illuminateWish(this, 'A life so rich with love, peace, and fulfillment that your heart is always full.')">
+        <div class="flex items-center gap-2.5">
+          <span class="text-base wish-icon">ðŸ’Ž</span>
+          <span class="text-xs font-semibold text-slate-200">10. A Life Full of True Joy</span>
+        </div>
+        <span class="text-[10px] text-pink-300 font-mono">Tap</span>
+      </div>
+
+    </div>
+
+    <!-- Active Wish Detail Banner -->
+    <div id="wishBanner" class="glass-card p-3 border border-pink-500/30 text-center text-xs text-pink-200 font-light min-h-[48px] flex items-center justify-center">
+      "Tap any wish above to send a starlight blessing into your future."
+    </div>
+
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(11);
+
+    function illuminateWish(card, message) {
+      window.soundEngine.playChime();
+      const icon = card.querySelector('.wish-icon');
+      icon.textContent = 'ðŸŒŸ';
+      card.classList.add('border-pink-400', 'bg-pink-500/20');
+      document.getElementById('wishBanner').textContent = message;
+      gsap.fromTo('#wishBanner', { scale: 0.95 }, { scale: 1, duration: 0.25 });
+    }
+  </script>
+</body>
+</html>

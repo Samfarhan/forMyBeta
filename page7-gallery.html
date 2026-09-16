@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Polaroid Wall | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+  <style>
+    .polaroid-frame {
+      background: #ffffff;
+      padding: 10px 10px 24px 10px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .washi-tape {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 18px;
+      background: rgba(251, 113, 133, 0.5);
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <div class="ambient-glow-orb w-72 h-72 bg-amber-500/15 top-10 -right-20"></div>
+
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">CHAPTER 06</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        Polaroid Memories ðŸ“·
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">Snapshots frozen in time</p>
+    </header>
+
+    <div class="my-4 grid grid-cols-2 gap-3.5">
+
+      <!-- Polaroid 1 -->
+      <div class="polaroid-frame rounded-md cursor-pointer transform -rotate-2 hover:rotate-0 hover:scale-105 relative" onclick="openPhoto('Golden Hour Magic ðŸŒ…', 'That evening when everything felt calm and golden, and we wished the day would never end.')">
+        <div class="washi-tape"></div>
+        <div class="h-28 bg-gradient-to-tr from-rose-900 to-amber-700 rounded flex items-center justify-center text-3xl">
+          ðŸŒ…
+        </div>
+        <div class="font-handwriting text-slate-800 text-sm font-bold text-center mt-2 leading-none">
+          Golden Hour âœ¨
+        </div>
+      </div>
+
+      <!-- Polaroid 2 -->
+      <div class="polaroid-frame rounded-md cursor-pointer transform rotate-2 hover:rotate-0 hover:scale-105 relative" onclick="openPhoto('Late Night Walks ðŸŒ™', 'Cold breeze, quiet roads, walking side by side without a care in the world.')">
+        <div class="washi-tape"></div>
+        <div class="h-28 bg-gradient-to-tr from-purple-900 to-indigo-800 rounded flex items-center justify-center text-3xl">
+          ðŸŒŒ
+        </div>
+        <div class="font-handwriting text-slate-800 text-sm font-bold text-center mt-2 leading-none">
+          Late Night Peace ðŸŒ™
+        </div>
+      </div>
+
+      <!-- Polaroid 3 -->
+      <div class="polaroid-frame rounded-md cursor-pointer transform rotate-1 hover:rotate-0 hover:scale-105 relative" onclick="openPhoto('The Silly Goofy Moments ðŸ¤ª', 'The unfiltered jokes and laughter that made our cheeks hurt from smiling so much.')">
+        <div class="washi-tape"></div>
+        <div class="h-28 bg-gradient-to-tr from-pink-900 to-rose-700 rounded flex items-center justify-center text-3xl">
+          ðŸŽˆ
+        </div>
+        <div class="font-handwriting text-slate-800 text-sm font-bold text-center mt-2 leading-none">
+          Pure Laughter ðŸ¤
+        </div>
+      </div>
+
+      <!-- Polaroid 4 -->
+      <div class="polaroid-frame rounded-md cursor-pointer transform -rotate-3 hover:rotate-0 hover:scale-105 relative" onclick="openPhoto('Food Dates & Treats ðŸ¥Ÿ', 'Sharing delicious food, stealing that extra bite, and living in pure comfort.')">
+        <div class="washi-tape"></div>
+        <div class="h-28 bg-gradient-to-tr from-amber-900 to-orange-800 rounded flex items-center justify-center text-3xl">
+          ðŸœ
+        </div>
+        <div class="font-handwriting text-slate-800 text-sm font-bold text-center mt-2 leading-none">
+          Foodie Happiness ðŸ˜‹
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="photoModal" class="fixed inset-0 bg-black/85 backdrop-blur-lg flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+      <div class="glass-card max-w-sm w-full p-6 text-center border border-pink-500/30 relative">
+        <h3 id="modalTitle" class="font-luxury text-lg font-bold text-white text-glow-rose mb-2"></h3>
+        <p id="modalDesc" class="text-xs text-slate-300 font-light leading-relaxed mb-5"></p>
+        <button onclick="closePhoto()" class="btn-luxury-secondary text-xs py-2 px-6">Close Memory</button>
+      </div>
+    </div>
+
+    <div class="text-center text-[10px] text-slate-400 py-1">
+      Tap any polaroid to reveal the memory behind it
+    </div>
+
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(7);
+
+    function openPhoto(title, desc) {
+      window.soundEngine.playPop();
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalDesc').textContent = desc;
+      const modal = document.getElementById('photoModal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+    }
+
+    function closePhoto() {
+      window.soundEngine.playPop();
+      const modal = document.getElementById('photoModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2e1065"/>
+      <stop offset="100%" stop-color="#0f0728"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="25" width="80" height="55" rx="8" fill="url(#envGrad)" stroke="#fb7185" stroke-width="1.5"/>
+  <path d="M 12 27 L 50 55 L 88 27" fill="none" stroke="#fb7185" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Wax Seal -->
+  <circle cx="50" cy="55" r="12" fill="#e11d48" stroke="#fecdd3" stroke-width="1"/>
+  <path d="M 50 51 C 48 48, 44 49, 44 52 C 44 55, 50 58, 50 59 C 50 58, 56 55, 56 52 C 56 49, 52 48, 50 51 Z" fill="#ffffff"/>
+</svg>

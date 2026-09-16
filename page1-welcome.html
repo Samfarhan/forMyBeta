@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Prologue | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <!-- Interactive Canvas -->
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <!-- Ambient Glow -->
+  <div class="ambient-glow-orb w-72 h-72 bg-pink-600/25 top-10 -right-20"></div>
+  <div class="ambient-glow-orb w-80 h-80 bg-purple-700/20 bottom-20 -left-20"></div>
+
+  <!-- Floating Companion Sticker -->
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <!-- Top Header -->
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">PROLOGUE</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        A Gentle Beginning
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">Before you turn the pages of our memory</p>
+    </header>
+
+    <!-- Content Glass Card -->
+    <div class="my-auto py-4">
+      <div class="glass-card p-6 relative overflow-hidden border border-white/15 animate-gentle-float">
+        
+        <!-- Soft decorative quote marks -->
+        <span class="font-luxury text-5xl text-pink-400/20 absolute top-2 left-4 select-none">â€œ</span>
+
+        <p class="text-xs md:text-sm text-slate-200 leading-relaxed font-light mt-3 mb-4">
+          Hey Bettuu. We might not be walking the same path anymore, and life might have taken us in different directions, but what was real will always stay real.
+        </p>
+        <p class="text-xs md:text-sm text-slate-200 leading-relaxed font-light mb-4">
+          I built this private space for you not out of sadness or regret, but with <span class="text-pink-300 font-semibold">pure gratitude</span>. To celebrate how we met, the laughter we shared, your favorite foods, your adorable habits, and everything that made you special to me.
+        </p>
+        <p class="text-xs md:text-sm text-pink-200/90 leading-relaxed font-medium italic">
+          Take your time going through this. Tap whatever catches your eye. Every single page here was made with warmth and a wish for your happiness.
+        </p>
+
+        <!-- Signature stamp -->
+        <div class="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+          <span class="font-handwriting text-lg text-pink-300 font-bold">Always wishing you peace ðŸŒ¸</span>
+          <span>12 Chapters Ahead</span>
+        </div>
+
+      </div>
+
+      <!-- Action Button -->
+      <div class="mt-6 flex justify-center">
+        <a href="page2-how-we-met.html" onclick="window.soundEngine.playPop()" class="btn-luxury-primary w-full text-center">
+          <span>Start The Journey</span>
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Nav Bar -->
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(1);
+  </script>
+</body>
+</html>

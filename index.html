@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>For You | The Celestial Vault</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg flex items-center justify-center min-h-[100dvh] overflow-hidden relative">
+
+  <!-- Interactive Stardust Canvas -->
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+  <!-- Ambient Glowing Orbs -->
+  <div class="ambient-glow-orb w-80 h-80 bg-rose-600/30 top-10 -left-20"></div>
+  <div class="ambient-glow-orb w-80 h-80 bg-purple-600/25 bottom-10 -right-20"></div>
+
+  <!-- Main Container -->
+  <main class="journey-shell justify-center items-center text-center">
+    
+    <!-- Vault Card -->
+    <div id="vaultCard" class="w-full glass-card p-6 md:p-8 flex flex-col items-center relative z-20 border border-white/20">
+      
+      <!-- Top Crest / Glowing Seal -->
+      <div class="w-16 h-16 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-4 relative">
+        <div class="absolute inset-0 rounded-full bg-pink-500/20 animate-ping opacity-40"></div>
+        <span class="text-2xl">âœ¨</span>
+      </div>
+
+      <!-- Tagline -->
+      <span class="text-[10px] font-extrabold tracking-[0.4em] text-pink-300 uppercase mb-2">A TIMELOCK DEDICATION</span>
+      
+      <!-- Title -->
+      <h1 class="font-luxury text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-pink-100 to-rose-300 mb-3 text-glow-rose leading-tight">
+        For My Beta
+      </h1>
+
+      <!-- Dedication Note -->
+      <p class="text-xs md:text-sm text-slate-300 font-light leading-relaxed mb-6 max-w-xs">
+        Because some stories are too precious to simply fade away. A private vault of our memories, your favorite things, and a heartfelt last message.
+      </p>
+
+      <!-- Interactive Glowing Heart Key -->
+      <div class="my-3 flex flex-col items-center">
+        <button id="unlockBtn" onclick="handleUnlock()" class="w-20 h-20 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center shadow-[0_0_35px_rgba(244,63,94,0.6)] border border-pink-300/50 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer relative">
+          <span class="text-3xl filter drop-shadow group-hover:scale-110 transition-transform">ðŸ¤</span>
+          <div class="absolute -bottom-7 whitespace-nowrap text-[10px] font-bold text-pink-300 tracking-wider uppercase opacity-80 group-hover:opacity-100">
+            Tap to Open
+          </div>
+        </button>
+      </div>
+
+      <!-- Quick passcode alternative -->
+      <div class="mt-12 text-[11px] text-slate-400 flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Every memory here is protected forever</span>
+      </div>
+
+    </div>
+
+    <footer class="mt-6 text-[10px] text-slate-500 tracking-wider">
+      A Farewell Tribute â€¢ Dedicated With Infinite Respect
+    </footer>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+
+    function handleUnlock() {
+      window.soundEngine.playSuccess();
+      const card = document.getElementById('vaultCard');
+      gsap.to(card, {
+        scale: 0.9,
+        opacity: 0,
+        filter: 'blur(10px)',
+        duration: 0.8,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          window.location.href = 'page1-welcome.html';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

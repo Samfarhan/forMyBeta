@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>How We Met | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <div class="ambient-glow-orb w-72 h-72 bg-violet-600/25 top-10 -left-20"></div>
+
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">CHAPTER 01</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        How Our Worlds Collided
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">The serendipity that started it all</p>
+    </header>
+
+    <!-- Timeline Container -->
+    <div class="my-4 space-y-3.5">
+
+      <!-- Timeline Card 1 -->
+      <div class="glass-card glass-card-interactive p-4 border border-white/15 cursor-pointer" onclick="toggleMemory(this)">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-sm">ðŸŒŒ</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">The Unexpected Start</h3>
+              <span class="text-[10px] text-pink-300 tracking-wider">Out of 8 billion people</span>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400 toggle-arrow">â–¼</span>
+        </div>
+        <p class="hidden text-xs text-slate-300 mt-3 pt-2 border-t border-white/10 leading-relaxed font-light">
+          Neither of us knew that an ordinary day would end with someone who would come to mean so much. It started with simple words, but from the very beginning, something in your energy felt calming and special.
+        </p>
+      </div>
+
+      <!-- Timeline Card 2 -->
+      <div class="glass-card glass-card-interactive p-4 border border-white/15 cursor-pointer" onclick="toggleMemory(this)">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-sm">ðŸ’¬</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">The Texts That Wouldn't End</h3>
+              <span class="text-[10px] text-purple-300 tracking-wider">Losing track of hours</span>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400 toggle-arrow">â–¼</span>
+        </div>
+        <p class="hidden text-xs text-slate-300 mt-3 pt-2 border-t border-white/10 leading-relaxed font-light">
+          Hours turned into minutes. Talking about everything and nothingâ€”our favorite things, weird habits, random thoughts at 2 AM. Checking the phone and smiling at your name lighting up the screen.
+        </p>
+      </div>
+
+      <!-- Timeline Card 3 -->
+      <div class="glass-card glass-card-interactive p-4 border border-white/15 cursor-pointer" onclick="toggleMemory(this)">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-sm">âœ¨</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">That Genuine First Laugh</h3>
+              <span class="text-[10px] text-amber-300 tracking-wider">No filters, just happiness</span>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400 toggle-arrow">â–¼</span>
+        </div>
+        <p class="hidden text-xs text-slate-300 mt-3 pt-2 border-t border-white/10 leading-relaxed font-light">
+          The moment we dropped the polite formalities and laughed without restraint. Your laugh is one of the brightest sounds in the world, and making you laugh was honestly my favorite achievement.
+        </p>
+      </div>
+
+      <!-- Timeline Card 4 -->
+      <div class="glass-card glass-card-interactive p-4 border border-white/15 cursor-pointer" onclick="toggleMemory(this)">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center text-sm">ðŸ¤</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">From Strangers to My Safe Place</h3>
+              <span class="text-[10px] text-pink-300 tracking-wider">A bond worth remembering</span>
+            </div>
+          </div>
+          <span class="text-xs text-slate-400 toggle-arrow">â–¼</span>
+        </div>
+        <p class="hidden text-xs text-slate-300 mt-3 pt-2 border-t border-white/10 leading-relaxed font-light">
+          You quickly became the person I wanted to tell first whenever something good or bad happened. Even though the chapter has ended, meeting you remains one of the best things that ever happened.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Instruction hint -->
+    <div class="text-center text-[11px] text-slate-400 py-1">
+      Tap any chapter above to expand our story ðŸŒ¸
+    </div>
+
+    <!-- Bottom Nav Bar -->
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(2);
+
+    function toggleMemory(card) {
+      window.soundEngine.playPop();
+      const p = card.querySelector('p');
+      const arrow = card.querySelector('.toggle-arrow');
+      if (p.classList.contains('hidden')) {
+        p.classList.remove('hidden');
+        arrow.textContent = 'â–²';
+        gsap.from(p, { opacity: 0, y: -5, duration: 0.25 });
+      } else {
+        p.classList.add('hidden');
+        arrow.textContent = 'â–¼';
+      }
+    }
+  </script>
+</body>
+</html>

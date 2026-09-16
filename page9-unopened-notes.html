@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sealed Letters | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <div class="ambient-glow-orb w-72 h-72 bg-pink-600/20 top-10 -right-20"></div>
+
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">CHAPTER 08</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        Letters For Whenever... âœ‰ï¸
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">Sealed notes to read whenever you need them</p>
+    </header>
+
+    <!-- Envelopes Grid -->
+    <div class="my-4 grid grid-cols-2 gap-3">
+
+      <!-- Note 1 -->
+      <div class="glass-card glass-card-interactive p-3.5 flex flex-col items-center text-center cursor-pointer border border-pink-500/20" onclick="openEnvelope('When You Doubt Yourself ðŸ¤', 'Remember how resilient and capable you are. You have walked through so many stressful and uncertain days before, and you came out stronger every single time. Never doubt how extraordinary you are, Bettuu.')">
+        <div class="w-10 h-10 mb-2">
+          <img src="images/envelope.svg" class="w-full h-full" alt="Envelope">
+        </div>
+        <h4 class="text-xs font-bold text-white leading-tight">When You Doubt Yourself</h4>
+        <span class="text-[9px] text-pink-300 mt-1 uppercase tracking-wider">Tap to unseal</span>
+      </div>
+
+      <!-- Note 2 -->
+      <div class="glass-card glass-card-interactive p-3.5 flex flex-col items-center text-center cursor-pointer border border-purple-500/20" onclick="openEnvelope('When You Cannot Sleep ðŸŒ™', 'Breathe out. Unclench your jaw and let your shoulders drop. Whatever is troubling you tonight does not have to be solved right now. Tomorrow brings new grace. Sleep peacefully.')">
+        <div class="w-10 h-10 mb-2">
+          <img src="images/envelope.svg" class="w-full h-full" alt="Envelope">
+        </div>
+        <h4 class="text-xs font-bold text-white leading-tight">When You Can\'t Sleep</h4>
+        <span class="text-[9px] text-purple-300 mt-1 uppercase tracking-wider">Tap to unseal</span>
+      </div>
+
+      <!-- Note 3 -->
+      <div class="glass-card glass-card-interactive p-3.5 flex flex-col items-center text-center cursor-pointer border border-amber-500/20" onclick="openEnvelope('When You Achieve Something Big ðŸ†', 'I am out here cheering for you with all my heart! Nobody knows how much effort you put in behind the scenes better than you do. Celebrate yourself todayâ€”you earned every bit of this victory.')">
+        <div class="w-10 h-10 mb-2">
+          <img src="images/envelope.svg" class="w-full h-full" alt="Envelope">
+        </div>
+        <h4 class="text-xs font-bold text-white leading-tight">When You Win Big</h4>
+        <span class="text-[9px] text-amber-300 mt-1 uppercase tracking-wider">Tap to unseal</span>
+      </div>
+
+      <!-- Note 4 -->
+      <div class="glass-card glass-card-interactive p-3.5 flex flex-col items-center text-center cursor-pointer border border-blue-500/20" onclick="openEnvelope('On A Heavy Rainy Day ðŸŒ§ï¸', 'Wrap yourself in your coziest blanket, get a hot drink or something delicious to eat, and put on your favorite show. Give yourself permission to just rest and be gentle.')">
+        <div class="w-10 h-10 mb-2">
+          <img src="images/envelope.svg" class="w-full h-full" alt="Envelope">
+        </div>
+        <h4 class="text-xs font-bold text-white leading-tight">On Heavy Rainy Days</h4>
+        <span class="text-[9px] text-blue-300 mt-1 uppercase tracking-wider">Tap to unseal</span>
+      </div>
+
+      <!-- Note 5 -->
+      <div class="glass-card glass-card-interactive p-3.5 flex flex-col items-center text-center cursor-pointer border border-rose-500/20" onclick="openEnvelope('When You Need A Laugh ðŸŽˆ', 'Think of the most ridiculous inside jokes we had and how we couldn\'t stop giggling like children. Keep that playful spark alive always. The world needs your laugh.')">
+        <div class="w-10 h-10 mb-2">
+          <img src="images/envelope.svg" class="w-full h-full" alt="Envelope">
+        </div>
+        <h4 class="text-xs font-bold text-white leading-tight">When You Need A Smile</h4>
+        <span class="text-[9px] text-rose-300 mt-1 uppercase tracking-wider">Tap to unseal</span>
+      </div>
+
+      <!-- Note 6 -->
+      <div class="glass-card glass-card-interactive p-3.5 flex flex-col items-center text-center cursor-pointer border border-emerald-500/20" onclick="openEnvelope('To Remember You Were Loved ðŸ¤', 'If the world ever makes you feel alone, remember that you were truly, genuinely loved. You brought light, happiness, and peace into my life, and that memory is untouched by time.')">
+        <div class="w-10 h-10 mb-2">
+          <img src="images/envelope.svg" class="w-full h-full" alt="Envelope">
+        </div>
+        <h4 class="text-xs font-bold text-white leading-tight">A Timeless Reminder</h4>
+        <span class="text-[9px] text-emerald-300 mt-1 uppercase tracking-wider">Tap to unseal</span>
+      </div>
+
+    </div>
+
+    <!-- Modal for Reading Unsealed Note -->
+    <div id="noteModal" class="fixed inset-0 bg-black/85 backdrop-blur-lg flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+      <div class="glass-card max-w-sm w-full p-6 text-center border border-pink-500/40 relative">
+        <div class="w-12 h-12 mx-auto mb-3">
+          <img src="images/envelope.svg" class="w-full h-full filter drop-shadow" alt="Envelope Opened">
+        </div>
+        <h3 id="noteModalTitle" class="font-luxury text-base font-bold text-white text-glow-rose mb-3"></h3>
+        <p id="noteModalBody" class="text-xs md:text-sm text-slate-200 font-light leading-relaxed mb-6 font-serif italic"></p>
+        <button onclick="closeEnvelope()" class="btn-luxury-primary text-xs py-2 px-6">Seal Letter Back</button>
+      </div>
+    </div>
+
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(9);
+
+    function openEnvelope(title, body) {
+      window.soundEngine.playEnvelopeUnfold();
+      document.getElementById('noteModalTitle').textContent = title;
+      document.getElementById('noteModalBody').textContent = body;
+      const modal = document.getElementById('noteModal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+    }
+
+    function closeEnvelope() {
+      window.soundEngine.playPop();
+      const modal = document.getElementById('noteModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Days | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <div class="ambient-glow-orb w-72 h-72 bg-amber-500/20 top-10 -right-20"></div>
+
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">CHAPTER 02</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        The Sunshine Chapters
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">How we created pure happiness together</p>
+    </header>
+
+    <div class="my-4 space-y-3">
+
+      <!-- Sunshine Card 1 -->
+      <div class="glass-card p-4 border border-white/15 relative overflow-hidden">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl p-2 rounded-2xl bg-pink-500/20 border border-pink-500/30">ðŸŒ™</span>
+          <div>
+            <h3 class="text-sm font-bold text-white">Midnight Laughs & Whispers</h3>
+            <p class="text-xs text-slate-300 mt-1 font-light leading-relaxed">
+              When the entire world was sleeping, we were in our own little universe. Fighting sleep just to talk for five more minutes, laughing at things that made zero sense to anyone else.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sunshine Card 2 -->
+      <div class="glass-card p-4 border border-white/15 relative overflow-hidden">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl p-2 rounded-2xl bg-amber-500/20 border border-amber-500/30">ðŸ’›</span>
+          <div>
+            <h3 class="text-sm font-bold text-white">Turning Bad Days Into Light</h3>
+            <p class="text-xs text-slate-300 mt-1 font-light leading-relaxed">
+              Whenever you had a tough day, nothing mattered more than seeing you smile again. And whenever I felt lost, your voice alone was enough to bring me back to peace.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sunshine Card 3 -->
+      <div class="glass-card p-4 border border-white/15 relative overflow-hidden">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl p-2 rounded-2xl bg-purple-500/20 border border-purple-500/30">ðŸ§¸</span>
+          <div>
+            <h3 class="text-sm font-bold text-white">Comfort In Pure Silence</h3>
+            <p class="text-xs text-slate-300 mt-1 font-light leading-relaxed">
+              We never had to pretend or fill every quiet moment. Just staying on call, working, studying, or resting together felt effortless and safe.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Sunshine Button -->
+      <div class="pt-2 text-center">
+        <button id="sparkleJoyBtn" onclick="triggerJoyBurst()" class="btn-luxury-secondary text-xs w-full py-3">
+          <span>âœ¨ Remember This Warmth</span>
+        </button>
+        <div id="joyFeedback" class="text-[11px] font-bold text-pink-300 mt-2 h-4 opacity-0 transition-opacity">
+          "The happiness was 100% genuine and forever cherished."
+        </div>
+      </div>
+
+    </div>
+
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(3);
+
+    function triggerJoyBurst() {
+      window.soundEngine.playChime();
+      const feedback = document.getElementById('joyFeedback');
+      feedback.classList.remove('opacity-0');
+      gsap.fromTo(feedback, { scale: 0.8 }, { scale: 1, duration: 0.3 });
+      
+      // Floating hearts effect
+      for(let i = 0; i < 6; i++) {
+        const heart = document.createElement('div');
+        heart.textContent = 'ðŸ’›';
+        heart.className = 'fixed text-xl pointer-events-none z-50';
+        heart.style.left = (window.innerWidth / 2 + (Math.random() - 0.5) * 120) + 'px';
+        heart.style.top = (window.innerHeight / 2 + 100) + 'px';
+        document.body.appendChild(heart);
+        gsap.to(heart, {
+          y: -150 - Math.random() * 80,
+          x: (Math.random() - 0.5) * 80,
+          opacity: 0,
+          duration: 1.5,
+          onComplete: () => heart.remove()
+        });
+      }
+    }
+  </script>
+</body>
+</html>

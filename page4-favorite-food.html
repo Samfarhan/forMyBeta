@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Her Favorite Food | For My Beta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <link rel="stylesheet" href="css/luxury.css">
+</head>
+<body class="cosmic-bg min-h-[100dvh] overflow-x-hidden relative">
+
+  <canvas id="stardustCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+  <div class="ambient-glow-orb w-72 h-72 bg-rose-500/20 top-10 -left-20"></div>
+
+  <div id="companionMascot" class="animate-roaming-mascot"></div>
+
+  <main class="journey-shell">
+    
+    <header class="pt-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+        <span class="text-[9px] font-extrabold tracking-[0.3em] text-pink-300 uppercase">CHAPTER 03</span>
+      </div>
+      <h1 class="font-luxury text-2xl md:text-3xl font-bold text-white text-glow-rose">
+        Her Culinary Galaxy ðŸœ
+      </h1>
+      <p class="text-xs text-slate-400 mt-1">Tap a favorite dish to see her happy reaction</p>
+    </header>
+
+    <!-- Interactive Hangry vs Happy Bar -->
+    <div class="glass-card p-3 my-2 border border-pink-500/20 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">ðŸ˜¤</span>
+        <span class="text-[11px] font-bold text-slate-300">Hangry Mode</span>
+      </div>
+      <div class="w-28 h-2 bg-slate-800 rounded-full overflow-hidden mx-2 relative">
+        <div id="cravingMeter" class="h-full bg-gradient-to-r from-amber-400 to-rose-500 rounded-full transition-all duration-500" style="width: 85%"></div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[11px] font-bold text-pink-300">Pure Joy</span>
+        <span class="text-lg">ðŸ¥°</span>
+      </div>
+    </div>
+
+    <!-- Food Cards Grid -->
+    <div class="my-2 space-y-2.5">
+
+      <!-- Food 1: Steaming Hot Momos / Dim Sum -->
+      <div class="glass-card glass-card-interactive p-3.5 border border-white/15 cursor-pointer" onclick="feedBettuu(this, 'ðŸ¥Ÿ', 'Steaming hot momos with extra spicy chutney! The happy face when the first bite is perfection.')">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-red-500/20 border border-red-500/30">ðŸ¥Ÿ</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">Steaming Hot Momos</h3>
+              <p class="text-[10px] text-pink-300">Extra spicy red chutney is a must</p>
+            </div>
+          </div>
+          <span class="text-[10px] bg-pink-500/20 text-pink-300 px-2 py-0.5 rounded-full border border-pink-500/30">Favorite</span>
+        </div>
+      </div>
+
+      <!-- Food 2: Cheesy Pizza & Crispy Fries -->
+      <div class="glass-card glass-card-interactive p-3.5 border border-white/15 cursor-pointer" onclick="feedBettuu(this, 'ðŸ•', 'Hot cheesy pizza with crispy fries on the side! Instant cure for any gloomy afternoon.')">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-amber-500/20 border border-amber-500/30">ðŸ•</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">Cheesy Pizza & Fries</h3>
+              <p class="text-[10px] text-amber-300">Cheese pull & crispy goodness</p>
+            </div>
+          </div>
+          <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">Craving</span>
+        </div>
+      </div>
+
+      <!-- Food 3: Midnight Biryani & Street Treats -->
+      <div class="glass-card glass-card-interactive p-3.5 border border-white/15 cursor-pointer" onclick="feedBettuu(this, 'ðŸ›', 'Flavor-packed aromatic biryani! Fighting over who gets the best portion, then sharing it anyway.')">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-orange-500/20 border border-orange-500/30">ðŸ›</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">Aromatic Biryani Feast</h3>
+              <p class="text-[10px] text-orange-300">Rich spices & comfort in every bite</p>
+            </div>
+          </div>
+          <span class="text-[10px] bg-orange-500/20 text-orange-300 px-2 py-0.5 rounded-full border border-orange-500/30">Comfort</span>
+        </div>
+      </div>
+
+      <!-- Food 4: Sweet Pastries & Chocolate Indulgence -->
+      <div class="glass-card glass-card-interactive p-3.5 border border-white/15 cursor-pointer" onclick="feedBettuu(this, 'ðŸ°', 'Always having a separate stomach reserved exclusively for dessert and chocolate!')">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-pink-500/20 border border-pink-500/30">ðŸ°</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">Desserts & Chocolates</h3>
+              <p class="text-[10px] text-pink-300">The separate dessert stomach</p>
+            </div>
+          </div>
+          <span class="text-[10px] bg-pink-500/20 text-pink-300 px-2 py-0.5 rounded-full border border-pink-500/30">Sweet Tooth</span>
+        </div>
+      </div>
+
+      <!-- Food 5: Iced Coffee / Chai Breaks -->
+      <div class="glass-card glass-card-interactive p-3.5 border border-white/15 cursor-pointer" onclick="feedBettuu(this, 'ðŸ§‹', 'Holding the warm cup or iced drink, taking slow sips and sharing gossip and stories.')">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-xl bg-emerald-500/20 border border-emerald-500/30">ðŸ§‹</span>
+            <div>
+              <h3 class="text-xs font-bold text-white">Chai & Iced Drinks</h3>
+              <p class="text-[10px] text-emerald-300">Sips between stories</p>
+            </div>
+          </div>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">Vibe</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Reactive Reaction Banner -->
+    <div id="foodReactionBox" class="glass-card p-3 border border-pink-500/30 text-center transition-all duration-300">
+      <span id="reactionEmoji" class="text-xl inline-block">âœ¨</span>
+      <p id="reactionText" class="text-xs text-pink-200 mt-1 font-medium">
+        "Never skip meals, Bettuu. Eat good food and stay happy always!"
+      </p>
+    </div>
+
+    <div id="floatingNavBar"></div>
+
+  </main>
+
+  <script src="js/core.js"></script>
+  <script>
+    initStardustCanvas();
+    initCompanionMascot();
+    initNavBar(4);
+
+    function feedBettuu(element, emoji, message) {
+      window.soundEngine.playPop();
+      const emojiBox = document.getElementById('reactionEmoji');
+      const textBox = document.getElementById('reactionText');
+      emojiBox.textContent = emoji;
+      textBox.textContent = message;
+      gsap.fromTo([emojiBox, textBox], { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3 });
+
+      // Pop floating icons
+      for(let i = 0; i < 4; i++) {
+        const span = document.createElement('div');
+        span.textContent = emoji;
+        span.className = 'fixed text-xl pointer-events-none z-50';
+        span.style.left = (window.innerWidth / 2 + (Math.random() - 0.5) * 100) + 'px';
+        span.style.top = (window.innerHeight / 2 + 50) + 'px';
+        document.body.appendChild(span);
+        gsap.to(span, {
+          y: -120 - Math.random() * 60,
+          opacity: 0,
+          duration: 1.2,
+          onComplete: () => span.remove()
+        });
+      }
+    }
+  </script>
+</body>
+</html>
